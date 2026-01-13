@@ -1,0 +1,39 @@
+CREATE TABLE poste(
+   numpost VARCHAR(50),
+   designpost VARCHAR(50) NOT NULL,
+   PRIMARY KEY(numpost)
+);
+
+CREATE TABLE niveau_Competances(
+   codeniv VARCHAR(50),
+   designpost VARCHAR(50),
+   PRIMARY KEY(codeniv)
+);
+
+CREATE TABLE competences(
+   idComp VARCHAR(50),
+   intitulecompetences VARCHAR(50),
+   codeniv VARCHAR(50) NOT NULL,
+   PRIMARY KEY(idComp),
+   FOREIGN KEY(codeniv) REFERENCES niveau_Competances(codeniv)
+);
+
+CREATE TABLE salaire(
+   numsal VARCHAR(50),
+   nomsal VARCHAR(50) NOT NULL,
+   pnomsal VARCHAR(50) NOT NULL,
+   genre VARCHAR(1) NOT NULL,
+   datenaissance DATE NOT NULL,
+   dateemb DATE NOT NULL,
+   numpost VARCHAR(50) NOT NULL,
+   PRIMARY KEY(numsal),
+   FOREIGN KEY(numpost) REFERENCES poste(numpost)
+);
+
+CREATE TABLE posseder(
+   numsal VARCHAR(50),
+   idComp VARCHAR(50),
+   PRIMARY KEY(numsal, idComp),
+   FOREIGN KEY(numsal) REFERENCES salaire(numsal),
+   FOREIGN KEY(idComp) REFERENCES competences(idComp)
+);
